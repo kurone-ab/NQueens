@@ -5,6 +5,7 @@ public class Main {
     static double cases, count;
     private static int[] chess;
     private static Vector<int[]> answers;
+    private static ResultWindow resultWindow;
 
     public static void main(String[] args) {
         new MainFrame().setVisible(true);
@@ -14,7 +15,10 @@ public class Main {
         cases = Math.pow(N, N);
         chess = new int[N];
         answers = new Vector<>();
-        Thread thread = new Thread(() -> Main.search(chess, 0));
+        Thread thread = new Thread(() -> {
+            Main.search(chess, 0);
+            resultWindow = new ResultWindow(answers);
+        });
         thread.start();
         return thread;
     }
@@ -41,7 +45,7 @@ public class Main {
     }
 
     static void showResult(){
-        new ResultWindow(answers).setVisible(true);
+        resultWindow.setVisible(true);
     }
 
 }
